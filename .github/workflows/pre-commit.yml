@@ -23,6 +23,11 @@ jobs:
         run: echo "NUM=$(cat galaxy.yml | grep 'version:' | cut -d ':' -f 2 | awk '{print $1}')" >> $GITHUB_OUTPUT
         id: vers
 
+      - name: Test
+        run: ls -la
+        shell: bash
+        working-directory: ${{ vars.GITHUB_PATH }}
+
       - name: Install collection
         run: ansible-galaxy collection install ./infra-leapp-${{ steps.vers.outputs.NUM }}.tar.gz -p /home/runner/collections
         shell: bash
